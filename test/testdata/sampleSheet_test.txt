@@ -1,0 +1,2 @@
+ATCACG	test_atcacg.fq	zork_sample_thing
+TTAGGC	test_ttaggc.fq	another_sample

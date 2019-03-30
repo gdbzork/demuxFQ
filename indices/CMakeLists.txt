@@ -1,0 +1,2 @@
+add_executable(extractIndices extractIndices.cpp)
+target_link_libraries(extractIndices demux_common)

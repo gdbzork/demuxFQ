@@ -1,0 +1,21 @@
+Version 4.0 Refactor, move to GitHub, replace autotools with cmake
+Version 3.0 Split demuxIllumina out from BODE
+Version 2.2.1 pass make dist and make distcheck if cxxtestgen is not installed
+Version 2.2: Support Unix, Dos, Mac format for sample sheet
+Version 2.1.2: remove unused header, ensure error return code if bad fq header format
+Version 2.1.1: fix bug in version reporting
+Version 2.1: Read multiple fastq files on cmd line as one file, understand new FQ header format, retire summarizeBarcodes because demuxIllumina now includes summaries, fix reporting bug
+Version 2.0.5: Fixed bug: silently exited on empty sample sheet (now gives error)
+Version 2.0.4: Fixed bug: close 'non-matching' file properly
+Version 2.0.3: Fixed build problem with older automake
+Version 2.0.2: Fixed bug: missing newline in file of non-matching indices
+Version 2.0.1: Fixed bug causing segfault on corrupt fastq file
+Version 2.0: Rewrote to summarize, demux in one step
+Version 1.7.5: Fixed src/Makefile.am so include files are included in distribution tar file.
+Version 1.7.4: Added "-r 0.nnn" option to summarizeBarcodes; set threshold frequency for reporting barcodes above frequency "r".
+Version 1.7.3: Fixed minor bug (forgot newline after writing FQ header) introduced in 1.7.2.
+Version 1.7.2: Fixed minor bug (formatting of summarizeBarcode reports).
+Version 1.7.1: Added "-b Filename" option to save bad (i.e. non-matching) reads to a file.
+Version 1.7.0: Rewrote code significantly to handle dual barcodes in a tidy way.
+Version 1.5.1: Added "verbose" flag to show contents of sample sheet.
+Version 1.0: First version.

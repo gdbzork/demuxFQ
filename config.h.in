@@ -1,0 +1,11 @@
+//
+// Created by brown22 on 3/29/19.
+//
+
+#ifndef DEMUXFQ_CONFIG_H
+#define DEMUXFQ_CONFIG_H_IN
+
+#define demux_VERSION_MAJOR @demuxFQ_VERSION_MAJOR@
+#define demux_VERSION_MINOR @demuxFQ_VERSION_MINOR@
+
+#endif //DEMUXFQ_CONFIG_H
