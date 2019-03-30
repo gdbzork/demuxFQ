@@ -1,10 +1,14 @@
 //
-// Created by brown22 on 3/29/19.
+// Created by Gord Brown on 2019-03-29.
 //
 
 #include <stdio.h>
+#include "indexArgs.h"
 
 int main(int argc,char **argv) {
-  printf("omega!\n");
+  IndexArgs *args = new IndexArgs();
+  args->process(argc,argv);
+  if (!args->shouldExit()) {
+  }
   return 0;
 }
