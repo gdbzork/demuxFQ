@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "Index.h"
+#include "index.h"
 
 int main(int argc,char **argv) {
   printf("alpha\n");
