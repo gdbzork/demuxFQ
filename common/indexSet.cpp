@@ -3,8 +3,16 @@
 #include <iomanip>
 #include <string>
 #include "index.h"
+#include "util.h"
 
-/*
+std::map<std::string,Index *> Index::indices;
+std::map<std::string,int> Index::counts;
+bool Index::isIllumina;
+int Index::lenFirstParam;
+int Index::lenSecondParam;
+bool Index::firstWasSet;
+bool Index::isDualFlag;
+
 int Index::split(char *str,char **dest,int max) {
   int index = 0,inspace;
   char *start = str;
@@ -63,13 +71,14 @@ void Index::revcomp(char *str) {
   }
   return;
 }
-*/
 
-void Index::setPattern(std::string pattern) {
-  this.pattern = pattern;
+void Index::setParams(bool illumina,int lenFirst) {
+  isIllumina = illumina;
+  lenFirstParam = lenFirst;
+  firstWasSet = lenFirst > -1;
 }
 
-Index& Index::parse(char *buffer) {
+Index *Index::indexFromFastqHeader(char *buffer,bool duplicateAllowed) {
   char *tagHead,*tagTail;
   std::string tag1,tag2;
   std::string representation;
@@ -247,9 +256,20 @@ void Index::dumpIndices(std::vector<Index*> *ss,std::vector<Index *> &unexpected
   }
 }
 
-bool Index::matches(Index const &other) {
-  int m = 0;
-  bool okay = true;
+void Index::clearCache(void) {
+  indices.clear();
+  counts.clear();
+}
+
+void Index::zeroCounts(void) {
+  std::map<std::string,int>::iterator it;
+  for (it=counts.begin(); it!=counts.end(); it++) {
+    counts[it->first] = 0;
+  }
+}
+
+bool Index::isMatch(Index const &other,int stringency,bool allowN) {
+  int m1 = 0,m2 = 0;
 
   if (other.tag1len < tag1len || other.tag2len < tag2len) {
     // won't match against a shorter tag
@@ -270,19 +290,47 @@ bool Index::matches(Index const &other) {
 }
 
 int Index::hammingDistance(Index const &other) {
-  int i,d = 0;
-  int minlen = std::min(tag.length(),other.tag.length());
+  int i,d1 = 0,d2 = 0;
+  int minlen1 = std::min(tag1len,other.tag1len);
+  int minlen2 = std::min(tag2len,other.tag2len);
 
-  for (i=0;i<minlen;i++) {
-    d1 += (tag[i] == other.tag[i]) ? 0 : 1;
+  for (i=0;i<minlen1;i++) {
+    d1 += (tag1[i] == other.tag1[i]) ? 0 : 1;
+  }
+  for (i=0;i<minlen2;i++) {
+    d2 += (tag2[i] == other.tag2[i]) ? 0 : 1;
   }
   return d1 + d2;
 }
 
-size_type Index::length(void) {
-  return tag.length();
+int Index::length(void) {
+  return tag1len + tag2len;
 }
 
-std::string Index::repr(void) const {
-  return tag;
+bool Index::isDual(void) {
+  return tag2len > 0;
+}
+
+std::string Index::repr(void) {
+  std::string result;
+  if (tag2len == 0) {
+    result = tag1;
+  } else {
+    result = tag1 + "," + tag2;
+  }
+  return result;
+}
+
+int Index::getCount(Index *i) {
+  return counts[i->repr()];
+}
+
+void Index::clearStaticData(void) {
+  indices.clear();
+  counts.clear();
+  isIllumina = false;
+  lenFirstParam = 0;
+  lenSecondParam = 0;
+  firstWasSet = false;
+  isDualFlag = false;
 }
