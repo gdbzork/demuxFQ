@@ -1,32 +1,29 @@
 #ifndef __INDEX_H__
 #define __INDEX_H__
 
+#include <string>
+
 class Index {
 
   public:
-    static Index& parse(char *buffer);
-    static void setPattern(std::string pattern);
-    
-    bool matches(Index const &other);
-    int hammingDistance(Index const &other);
-    size_type length(void);
-    std::string repr(void);
+    virtual bool matches(Index const &other) = 0;
+    virtual unsigned short hammingDistance(Index const &other) = 0;
+    size_t length(void);
+    std::string const &repr(void);
+    std::string const &umiTag(void);
 
-    static char delimiter = ':';
-    static int mismatchesAllowed = 0;
+    static int mismatchesAllowed; // default 0
 
   protected:
-    static std::string pattern = "11111111UUUUUUUUU+22222222";
-    static int startSecond = 18;
-    static bool dual = true;
+    static std::string pattern;
     std::string tag;
+    std::string umi;
 
-//    static int split(char *str,char **dest,int max);
-//    static void revcomp(char *str);
-//    static char comp(char c);
+    void revcomp(std::string &in);
 
     Index(std::string s):tag(s) {};
 
+  friend class IndexSet;
   friend class IndexTest;
 };
 
