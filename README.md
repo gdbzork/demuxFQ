@@ -8,13 +8,16 @@ The package may also be used to inspect a Fastq file without a sample sheet, rep
 ## Sample Sheets
 
 ** *demuxFQ* ** reads a sample sheet that describes the expected indices in the Fastq file.  The format of a line in the sample sheet is:
-> XXXXXXXX filename
+
+    XXXXXXXX filename
 
 Or if the file has dual indices:
-> XXXXXXXX YYYYYYYY filename
 
-where "XXXXXX" and "YYYYYY" are index sequences, and "filename" is the name of the file to which to write sequences matching this index (pair).  The white space separating the tokens may be spaces or tabs.  If the "-e" option ("*e* xtended" metadata) is provided on the command line, then the sample sheet may contain additional text after the filename:
-> XXXXXXXX filename extended metadata here
+    XXXXXXXX YYYYYYYY filename
+
+where ** *XXXXXXXX* ** and ** *YYYYYYYY* ** are index sequences, and ** *filename* ** is the name of the file to which to write sequences matching this index (pair).  The white space separating the tokens may be spaces or tabs.  If the ** *-e* ** option ("*e* xtended" metadata) is provided on the command line, then the sample sheet may contain additional text after the filename:
+
+    XXXXXXXX filename extended metadata here
 
 This extended data will be added to the demultiplexing summary, for documentation purposes.  Without the "-e" option, the sample sheet must have 2 or 3 columns (no white space is allowed in filenames or indices).
 
@@ -22,55 +25,59 @@ Blank lines, and lines starting with "#" are ignored.
 
 An example of a sample sheet with single indices::
 
-> GCCAATA jc1174_D1837ACXX_6_1.fq.gz
-> CTTGTAA jc1175_D1837ACXX_6_1.fq.gz
-> GTGAAAC jc1176_D1837ACXX_6_1.fq.gz
-> ACAGTGA jc1173_D1837ACXX_6_1.fq.gz
+    GCCAATA jc1174_D1837ACXX_6_1.fq.gz
+    CTTGTAA jc1175_D1837ACXX_6_1.fq.gz
+    GTGAAAC jc1176_D1837ACXX_6_1.fq.gz
+    ACAGTGA jc1173_D1837ACXX_6_1.fq.gz
 
-An example with dual indices::
+An example with dual indices:
 
-> ATTACTCG TAATCTTA SLX-5906.S12.r_1.fq.gz
-> ATTACTCG CAGGACGT SLX-5906.S13.r_1.fq.gz
-> ATTACTCG GTACTGAC SLX-5906.S14.r_1.fq.gz
-> TCCGGAGA TATAGCCT SLX-5906.S03.r_1.fq.gz
-> TCCGGAGA ATAGAGGC SLX-5906.S04.r_1.fq.gz
-> TCCGGAGA CCTATCCT SLX-5906.S15.r_1.fq.gz
+    ATTACTCG TAATCTTA SLX-5906.S12.r_1.fq.gz
+    ATTACTCG CAGGACGT SLX-5906.S13.r_1.fq.gz
+    ATTACTCG GTACTGAC SLX-5906.S14.r_1.fq.gz
+    TCCGGAGA TATAGCCT SLX-5906.S03.r_1.fq.gz
+    TCCGGAGA ATAGAGGC SLX-5906.S04.r_1.fq.gz
+    TCCGGAGA CCTATCCT SLX-5906.S15.r_1.fq.gz
 
-Note that if filenames end with ** *.gz* ** they will be gzip compressed; otherwise they will be uncompressed.
+Note that if filenames in the sample sheet end with ** *.gz* ** they will be gzip compressed; otherwise they will be uncompressed.
 
 ## Fastq Headers
 
 The format of the indices in the Fastq header is described by a string that indicates the positions of the first and second indices (if there is a second), and the optional UMI (unique molecular identifier), relative to the end of the header line.  Note that this software assumes that the index is at the end of the Fastq header line, or at least that any trailing characters are a fixed-length string.  With this assumption, the description is composed of the characters 1, 2, U, X, plus possibly other literal characters, such that a run of 1's shows the first index, a run of 2's the second, U's the UMI, and X's positions to be ignored.  Any other character is expected to match literally.
 
 For example:
-> 11111111UUUUUUUUU+22222222
+
+    11111111UUUUUUUUU+22222222
 
 indicates 8 characters for the 1st index, 9 characters for the UMI, a literal "+" separating the indices, and 8 characters for the 2nd index.
-> 11111111XXXX
+
+    11111111XXXX
 
 indicates 8 characters for the 1st index, followed by 4 unused characters (presumably some other lane used 12bp indices, so 12 were sequenced).
-> 11111111+22222222
+
+    11111111+22222222
 
 shows a straightforward dual index, 8bp for the first and second, separated by a literal "+" symbol.
 
 Examples of complete Fastq header lines:
 
-> @HWI-ST230:965:1:1101:13957:19936:CGTACGTA#TAATCTTA/1
-  @HWI-ST230:965:1:1101:13957:19936:CGTACGTA/1
-  @HWI-ST230:965:1:1101:13957:19936:CGTACGTA+TAATCTTA
-  @HWI-ST230:965:1:1101:13957:19936:CGTACG
+    @HWI-ST230:965:1:1101:13957:19936:CGTACGTA#TAATCTTA/1
+    @HWI-ST230:965:1:1101:13957:19936:CGTACGTA/1
+    @HWI-ST230:965:1:1101:13957:19936:CGTACGTA+TAATCTTA
+    @HWI-ST230:965:1:1101:13957:19936:CGTACG
 
 which would be recognized by these patterns:
-> 11111111#22222222XX
-  11111111XX
-  11111111+22222222
-  111111
+
+    11111111#22222222XX
+    11111111XX
+    11111111+22222222
+    111111
 
 Given that the pattern ends the line, it is not necessary to specify the delimiter (in this case a colon).  With a pattern of *n* characters, the program will consider the last *n* characters of each Fastq header.
 
 ## Command line
 
-> demuxFQ [options] [-s &lt;sampleSheet>] &lt;fastq> ...
+    demuxFQ [options] [-s <sampleSheet>] <fastq> ...
 
 The program summarizes the indices in the file(s), demultiplexes the file(s), or both, depending on the presence of the ** *-s* ** and ** *-d* ** options.  If demultiplexing, the sample sheet is required; if only summarizing, it is optional.
 
@@ -91,35 +98,35 @@ Multiple fastq files may be listed; they will be demultiplexed in order.  Note t
 
 If the ** *-s* ** option is provided, with the required filename, a summary of the indices found is provided.  Without a sample sheet, the summary reports the number of reads, number of distinct indices found, and a list of the indices with frequency at least that given by the ** *-r* ** parameter.  For example:
 
-> 176602548 reads
-  23511 distinct codes
-   45548212   CTTGTAA
-   50236885   GCCAATA
-   51427561   GTGAAAA
+    176602548 reads
+    23511 distinct codes
+     45548212   CTTGTAA
+     50236885   GCCAATA
+     51427561   GTGAAAA
 
 which shows that the input Fastq contained about 177 million reads, with 23,511 distinct indices seen, including 3 with a frequency higher than 0.001 (by default).
 
 If a sample sheet is provided, the report includes additional information:
 
-> 176602548 reads
-  18154293 10.27% lost
-  1 = threshold for match
-  3 = minimum distance between barcodes
-  Expected:
-  Index   Total   Balance    0 Mismatches    File
-  GCCAAT  53878803    91.52%  53800000 89.6% thisfile.fq.gz
-  CTTGTA  48841472    82.96%  48800000 95.0% thatfile.fq.gz
-  GTGAAA  55727980    94.66%  55000000 89.x% borkfile.fq.gz
-  23511 distinct codes
-   45548212   CTTGTAA
-   50236885   GCCAATA
-   51427561   GTGAAAA
-  Unknown
-    1248202   ACGTACA
+    176602548 reads
+    18154293 10.27% lost
+    1 = threshold for match
+    3 = minimum distance between barcodes
+    Expected:
+    Index   Total   Balance    0 Mismatches    File
+    GCCAAT  53878803    91.52%  53800000 89.6% thisfile.fq.gz
+    CTTGTA  48841472    82.96%  48800000 95.0% thatfile.fq.gz
+    GTGAAA  55727980    94.66%  55000000 89.x% borkfile.fq.gz
+    23511 distinct codes
+     45548212   CTTGTAA
+     50236885   GCCAATA
+     51427561   GTGAAAA
+    Unknown
+      1248202   ACGTACA
 
 This report includes
 * the number of reads,
-* the number (and percentage) lost, i.e. did not match a known index within N mismatches,
+* the number (and percentage) lost, i.e. did not match a known index within ** *N* ** mismatches,
 * the allowed number of mismatches,
 * the minimum edit distance between pairs of indices in the sample sheet,
 * counts of the reads matching each expected index,
