@@ -20,6 +20,8 @@ class Index {
     void revcomp(std::string &in);
 
     Index():umiS("") {};
+    Index(std::string u):umiS(u) {};
+    virtual ~Index() {};
 
   friend class IndexSet;
   friend class IndexTester;
