@@ -6,11 +6,13 @@
 * FastqReader -- read Fastq sequentially (or statically in Fastq?)
 * Index -- store an index, either from Fastq or a sample sheet
   * subclasses for single, dual indices
-  * static char for delimiter
-  * string describing index format
-  * static parser
+  * fast comparison for equality (override ==)
 * IndexSet -- collect set of known indices
-  * possibly implement a fast "seen" test
+  * factory class for making new indices
+  * implement a fast "seen" test
+  * subclasses for set of sample sheet indices, FQ file indices
+  * subclasses provide parsing for two cases
+  * ensure duplicate index -> same object
 * LineType -- static set of line types, code to determine line type.
 * Log -- keep logs of results (if not )
 * SampleSheet -- load, store, manipulate a sample sheet

@@ -8,23 +8,21 @@ class Index {
   public:
     virtual bool matches(Index const &other) = 0;
     virtual unsigned short hammingDistance(Index const &other) = 0;
-    size_t length(void);
-    std::string const &repr(void);
-    std::string const &umiTag(void);
+    virtual size_t length(void) = 0;
+    virtual std::string const &repr(void) = 0;
+    std::string const &umi(void);
 
     static int mismatchesAllowed; // default 0
 
   protected:
-    static std::string pattern;
-    std::string tag;
-    std::string umi;
+    std::string umiS;
 
     void revcomp(std::string &in);
 
-    Index(std::string s):tag(s) {};
+    Index():umiS("") {};
 
   friend class IndexSet;
-  friend class IndexTest;
+  friend class IndexTester;
 };
 
 #endif

@@ -5,8 +5,6 @@
 #include "index.h"
 #include "util.h"
 
-char IndexSet::delimiter = ':';
-int IndexSet::mismatchesAllowed = 0;
 std::string IndexSet::pattern = "11111111UUUUUUUUU+22222222";
 
 std::map<std::string,Index *> Index::indices;

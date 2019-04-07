@@ -29,6 +29,7 @@ class SampleSheet {
     std::vector<std::string> sampleFN;
     int count;
     bool hasSampleNames;
+    IndexSet seen;
 
   friend class SampleSheetTest;
 };

@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.7)
 
 project(demuxFQ)
-set (demuxFQ_VERSION_MAJOR 1)
-set (demuxFQ_VERSION_MINOR 0)
+set (demuxFQ_VERSION_MAJOR 0)
+set (demuxFQ_VERSION_MINOR 1)
 
 configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_BINARY_DIR}/config.h")
 include_directories("${PROJECT_BINARY_DIR}")

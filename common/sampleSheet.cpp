@@ -1,6 +1,8 @@
 #include <fstream>
 #include <ctype.h>
+#include <string.h>
 
+#include "indexSet.h"
 #include "sampleSheet.h"
 #include "util.h"
 #include "lineType.h"

@@ -70,14 +70,6 @@ int Index::hammingDistance(Index const &other) {
 }
 */
 
-size_t Index::length(void) {
-  return tag.length();
-}
-
-std::string const &Index::repr(void) {
-  return tag;
-}
-
-std::string const &Index::umiTag(void) {
-  return umi;
+std::string const &Index::umi(void) {
+  return umiS;
 }
