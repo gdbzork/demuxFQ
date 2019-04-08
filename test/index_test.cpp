@@ -148,27 +148,29 @@ TEST_CASE("hamming dist double","[index]") {
   IndexTester it;
   std::string sA = "zork";
   std::string sB = "kroz";
-  Index *x = it.makeSingleIndex(sA,sB);
-  Index *y = it.makeSingleIndex(sA,sB);
+  Index *x = it.makeDualIndex(sA,sB);
+  Index *y = it.makeDualIndex(sA,sB);
   REQUIRE(0 == x->hammingDistance(*y));
 }
 
 TEST_CASE("hamming dist double length1","[index]") {
   IndexTester it;
-  std::string s1 = "alpha";
-  std::string s2 = "alphabravo";
-  Index *x = it.makeSingleIndex(s1);
-  Index *y = it.makeSingleIndex(s2);
-  REQUIRE(5 == x->hammingDistance(*y));
+  std::string sA = "alpha";
+  std::string sB1 = "alpha";
+  std::string sB2 = "alphab";
+  Index *x = it.makeDualIndex(sB1,sA);
+  Index *y = it.makeDualIndex(sB1,sA);
+  REQUIRE(1 == x->hammingDistance(*y));
 }
 
 TEST_CASE("hamming dist double length2","[index]") {
   IndexTester it;
-  std::string s1 = "alpha";
-  std::string s2 = "alphabravo";
-  Index *x = it.makeSingleIndex(s1);
-  Index *y = it.makeSingleIndex(s2);
-  REQUIRE(5 == y->hammingDistance(*x));
+  std::string sA = "alpha";
+  std::string sB1 = "alpha";
+  std::string sB2 = "alphab";
+  Index *x = it.makeDualIndex(sB1,sA);
+  Index *y = it.makeDualIndex(sB1,sA);
+  REQUIRE(1 == y->hammingDistance(*x));
 }
 
 TEST_CASE("hamming dist double mismatch 1","[index]") {
