@@ -9,7 +9,7 @@ class Index {
     virtual bool matches(Index const &other) = 0;
     virtual unsigned short hammingDistance(Index const &other) = 0;
     virtual size_t length(void) = 0;
-    virtual std::string const &repr(void) = 0;
+    virtual std::string const &repr(void) const = 0;
     std::string const &umi(void);
 
     static int mismatchesAllowed; // default 0
@@ -17,6 +17,7 @@ class Index {
   protected:
     std::string umiS;
 
+    int ham(std::string const &s,std::string const &t);
     void revcomp(std::string &in);
 
     Index():umiS("") {};

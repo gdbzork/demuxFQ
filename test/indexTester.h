@@ -11,4 +11,5 @@ class IndexTester {
     bool matchesIndex(Index *i,std::string &s1);
     bool matchesIndex(Index *i,std::string &s1,std::string &s2);
     bool matchesUMI(Index *i,std::string &u);
+    int ham(Index *i,std::string const &s,std::string const &t);
 };

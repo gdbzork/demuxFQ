@@ -2,7 +2,7 @@
 // Created by brown22 on 3/29/19.
 //
 
-#ifndef DEMUXFQ_CONFIG_H
+#ifndef DEMUXFQ_CONFIG_H_IN
 #define DEMUXFQ_CONFIG_H_IN
 
 #define demux_VERSION_MAJOR @demuxFQ_VERSION_MAJOR@
@@ -10,4 +10,4 @@
 #define demux_SOURCE_DIR "@PROJECT_SOURCE_DIR@"
 #define demux_BINARY_DIR "@PROJECT_BINARY_DIR@"
 
-#endif //DEMUXFQ_CONFIG_H
+#endif //DEMUXFQ_CONFIG_H_IN

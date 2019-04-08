@@ -70,6 +70,18 @@ int Index::hammingDistance(Index const &other) {
 }
 */
 
+int Index::ham(std::string const &s,std::string const &t) {
+  int dist = 0; 
+  size_t minlen = std::min(s.size(),t.size());
+
+  for (int i=0;i<minlen;i++) {
+    dist += s[i] == t[i] ? 0 : 1;
+  }
+  dist += s.size() - minlen;
+  dist += t.size() - minlen;
+  return dist;
+}
+
 std::string const &Index::umi(void) {
   return umiS;
 }

@@ -47,3 +47,7 @@ bool IndexTester::matchesIndex(Index *i,std::string &s1,std::string &s2) {
 bool IndexTester::matchesUMI(Index *i,std::string &u) {
   return u == i->umiS;
 }
+
+int IndexTester::ham(Index *i,std::string const &s,std::string const &t) {
+  return i->ham(s,t);
+}

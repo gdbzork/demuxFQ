@@ -9,7 +9,7 @@ class IndexSingle: public Index {
     bool matches(Index const &other);
     unsigned short hammingDistance(Index const &other);
     size_t length(void);
-    std::string const &repr(void);
+    std::string const &repr(void) const;
 
 
   protected:
