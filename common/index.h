@@ -25,7 +25,7 @@ class Index {
     virtual ~Index() {};
 
   friend class IndexSet;
-  friend class IndexTester;
+  friend class IndexFriend;
 };
 
 #endif

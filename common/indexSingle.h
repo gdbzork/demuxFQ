@@ -19,7 +19,7 @@ class IndexSingle: public Index {
     IndexSingle(std::string t,std::string u): Index(u), tag(t) {};
     virtual ~IndexSingle() {};
 
-  friend class IndexTester;
+  friend class IndexFriend;
 };
 
 #endif // __INDEXSINGLE_H__

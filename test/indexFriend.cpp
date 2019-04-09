@@ -1,26 +1,26 @@
 #include "index.h"
 #include "indexSingle.h"
 #include "indexDual.h"
-#include "indexTester.h"
+#include "indexFriend.h"
 
-Index *IndexTester::makeSingleIndex(std::string &s) {
+Index *IndexFriend::makeSingleIndex(std::string &s) {
   return new IndexSingle(s);
 }
 
-Index *IndexTester::makeSingleIndex(std::string &s,std::string &u) {
+Index *IndexFriend::makeSingleIndex(std::string &s,std::string &u) {
   return new IndexSingle(s,u);
 }
 
-Index *IndexTester::makeDualIndex(std::string &s1,std::string &s2) {
+Index *IndexFriend::makeDualIndex(std::string &s1,std::string &s2) {
 
   return new IndexDual(s1,s2);
 }
 
-Index *IndexTester::makeDualIndex(std::string &s1,std::string &s2,std::string &u) {
+Index *IndexFriend::makeDualIndex(std::string &s1,std::string &s2,std::string &u) {
   return new IndexDual(s1,s2,u);
 }
 
-bool IndexTester::matchesIndex(Index *i,std::string &s) {
+bool IndexFriend::matchesIndex(Index *i,std::string &s) {
   bool m;
   try {
     IndexSingle *is = dynamic_cast<IndexSingle*>(i);
@@ -31,7 +31,7 @@ bool IndexTester::matchesIndex(Index *i,std::string &s) {
   return m;
 }
 
-bool IndexTester::matchesIndex(Index *i,std::string &s1,std::string &s2) {
+bool IndexFriend::matchesIndex(Index *i,std::string &s1,std::string &s2) {
   bool m = false;
 /*
   try {
@@ -44,10 +44,10 @@ bool IndexTester::matchesIndex(Index *i,std::string &s1,std::string &s2) {
   return m;
 }
   
-bool IndexTester::matchesUMI(Index *i,std::string &u) {
+bool IndexFriend::matchesUMI(Index *i,std::string &u) {
   return u == i->umiS;
 }
 
-int IndexTester::ham(Index *i,std::string const &s,std::string const &t) {
+int IndexFriend::ham(Index *i,std::string const &s,std::string const &t) {
   return i->ham(s,t);
 }

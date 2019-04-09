@@ -25,7 +25,7 @@ class IndexDual: public Index {
       tag = tag1 + "+" + tag2; };
     virtual ~IndexDual() {};
 
-  friend class IndexTester;
+  friend class IndexFriend;
 };
 
 #endif // __INDEXDUAL_H__

@@ -1,6 +1,6 @@
 #include "index.h"
 
-class IndexTester {
+class IndexFriend {
 
   public:
     Index *makeSingleIndex(std::string &s);
