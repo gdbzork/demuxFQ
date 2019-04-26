@@ -12,7 +12,6 @@ Index *IndexFriend::makeSingleIndex(std::string &s,std::string &u) {
 }
 
 Index *IndexFriend::makeDualIndex(std::string &s1,std::string &s2) {
-
   return new IndexDual(s1,s2);
 }
 
