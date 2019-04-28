@@ -60,10 +60,10 @@ SampleSheet *SampleSheet::load(char *inFN,bool hasSamples,bool reverse_second) {
   std::string sample;
   Index *ind;
   std::ifstream inFD;
-  TextType tt;
+  LineType tt;
   char termChar;
   
-  tt = TextTypeChecker::sget(inFN);
+  tt = LineTypeChecker::sget(inFN);
   if (tt == UNIX || tt == DOS) {
     termChar = '\n';
   } else if (tt == MAC) {
