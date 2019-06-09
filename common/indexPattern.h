@@ -14,6 +14,7 @@ class IndexPattern {
 
   protected:
     std::string pattern;
+    std::string line;
 
 };
 

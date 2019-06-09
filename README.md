@@ -19,7 +19,7 @@ where *XXXXXXXX* and *YYYYYYYY* are index sequences, and *filename* is the name 
 
     XXXXXXXX filename extended metadata here
 
-This extended data will be added to the demultiplexing summary, for documentation purposes.  Without the "-e" option, the sample sheet must have 2 or 3 columns (no white space is allowed in filenames or indices).
+This extended data will be added to the demultiplexing summary, for documentation purposes.  Without the "-e" option, the sample sheet must have 2 or 3 columns (no white space is allowed in filenames or indices).  Filenames are normally given as base names (i.e. without a leading path); the path to write them to, if not the current directory, is given on the command line with the "-o" option.  If names do include a leading path, it is included as part of the output name.  The target directory (directories, if leading paths are given) must exist.
 
 Blank lines, and lines starting with "#" are ignored.
 
@@ -137,7 +137,8 @@ For each expected index, the output includes
 * the number of reads matching this index,
 * the balance (see below),
 * the number and percent of perfect matches,
-* the filename of the output.
+* the filename of the output,
+* if extended metadata are provided, the matching metadata for this index.
 
 In a balanced pool of multiplexed samples, all samples would occur with about the same frequency.  Given *N* total sequences and *M* samples, about *N/M* sequences per sample would be good.  The *balance* column indicates how close to this ideal the data are: If *E = N/M* is the expected number of reads per sample, and *A* the actual number of reads found for a sample, the balance is *A/E*, expressed as a percentage.  Accordingly, a balance of 100% is perfect, less than 100% means that fewer than expected reads were seen, and more than 100% means more than expected reads were seen for this sample.  Note that the percentages are based on the total number of identified reads; the lost reads are not included in this calculation.
 

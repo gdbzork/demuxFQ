@@ -2,6 +2,8 @@
 
 ### Classes
 
+* Destination -- a file to write Fastq to (includes details like filename,
+  whether it is (should be) compressed, and the filehandle).
 * Fastq -- a Fastq sequence
 * FastqReader -- read Fastq sequentially (or statically in Fastq?)
 * Index -- store an index, either from Fastq or a sample sheet
