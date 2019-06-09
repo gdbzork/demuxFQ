@@ -81,7 +81,9 @@ Given that the pattern ends the line, it is not necessary to specify the delimit
 
 The program summarizes the indices in the file(s), demultiplexes the file(s), or both, depending on the presence of the *-s* and *-d* options.  If demultiplexing, the sample sheet is required; if only summarizing, it is optional.
 
-Multiple fastq files may be listed; they will be demultiplexed in order.  Note that the the output will be merged, as if all of the inputs were strung together as one long file.  Fastq files may be compressed with gzip, or uncompressed.
+Multiple fastq files may be listed; they will be demultiplexed in order.  Note that the output will be merged, as if all of the inputs were strung together as one long file.  Input fastq files may be compressed with gzip, or uncompressed.
+
+Command-line options include:
 
 * *-b &lt;filename>* -- Save reads with non-matching indices to the named file.
 * *-d* -- Generate demultiplexed output files.
@@ -146,9 +148,14 @@ For example, if there are 176602548 reads total (identified), and 3 indices in t
 
 ## Features to add
 
-* Check for IO errors
+* Check for IO errors, fail loudly if found.
 * Validate number of saved, lost reads against input total.
   * fast: just check the sums on exit.
   * slow (optional): re-read files, count reads.
-  * safe mode: count reads in input file first, warn if didn't write (or discard) that many
-* overwrite existing if -f option provided, otherwise refuse to overwrite.
+  * safe mode: count reads in input file first, warn if didn't write (or discard) that many.
+* Overwrite existing if -f option provided, otherwise refuse to overwrite.
+* Write summary to machine-friendly format.
+* Add parameter for max length of Fastq sequence (so we can pre-allocate a
+  Fastq object this big, reading for reading).
+* Add parameter to specify the separator between the header and index,
+  defaulting to ':' (use to check whether pattern length matches index length).
