@@ -155,7 +155,7 @@ For example, if there are 176602548 reads total (identified), and 3 indices in t
   * safe mode: count reads in input file first, warn if didn't write (or discard) that many.
 * Overwrite existing if -f option provided, otherwise refuse to overwrite.
 * Write summary to machine-friendly format.
-* Add parameter for max length of Fastq sequence (so we can pre-allocate a
-  Fastq object this big, reading for reading).
-* Add parameter to specify the separator between the header and index,
-  defaulting to ':' (use to check whether pattern length matches index length).
+* Add parameter for max length of Fastq sequence (so we can pre-allocate a Fastq object this big, ready for reading).
+* Add parameter to specify the separator between the header and index, defaulting to ':' (use to check whether pattern length matches index length).
+* Add memory-saving mode that does not track unique indices (doesn't need to maintain a hash of them).  Note that the summary report will necessarily be more limited.
+* Support paired-end sequencing directly: include two filenames in sample sheet.
