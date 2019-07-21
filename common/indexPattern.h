@@ -10,7 +10,6 @@ class IndexPattern {
     bool parse(std::string s);
     std::string const &first(void);
     std::string const &second(void);
-    std::string const &umi(void);
 
   protected:
     std::string pattern;
