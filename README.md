@@ -22,7 +22,7 @@ This extended text will be added to the demultiplexing summary, for documentatio
 
 Filenames are normally given as base names (i.e. without a leading path); the path to write them to, if not the current directory, is given on the command line with the "-o" option.  The destination directory must exist.
 
-Blank lines, and lines with "#" as the first non-blank character are ignored.
+Blank lines and lines with "#" as the first non-blank character are ignored.
 
 An example of a sample sheet with single indices::
 
@@ -41,11 +41,11 @@ An example with dual indices:
     TCCGGAGA ATAGAGGC SLX-5906.S04.r_1.fq.gz
     TCCGGAGA CCTATCCT SLX-5906.S15.r_1.fq.gz
 
-If filenames in the sample sheet end with *.gz* they will be gzip compressed; otherwise they will be written uncompressed.
+If filenames in the sample sheet end with *.gz* the files will be gzip compressed; otherwise they will be written uncompressed.
 
 ## Fastq Headers
 
-The format of the indices in the Fastq header is described by a string that indicates the positions of the first and second indices (if there is a second), relative to the end of the header line.  Note that this software assumes that the index is at the end of the Fastq read name line, or at least that any trailing characters are a fixed-length string.  With this assumption, the description is composed of the characters 1, 2, X, plus possibly other literal characters, such that a run of 1's shows the first index, a run of 2's the second, and X's positions to be ignored.  Any other character is expected to match literally.
+The format of the indices in the Fastq header is described by a string that indicates the positions of the first and second indices (if there is a second), relative to the *end* of the header line.  Note that this software assumes that the index is at the end of the Fastq read name line, or at least that any trailing characters are a fixed-length string.  With this assumption, the description is composed of the characters 1, 2, X, plus possibly other literal characters, such that a run of 1's shows the first index, a run of 2's the second, and X's positions to be ignored.  Any other character is expected to match literally.
 
 For example:
 
