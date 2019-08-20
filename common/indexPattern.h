@@ -19,7 +19,7 @@ class IndexPattern {
 
   public:
     IndexPattern(std::string pat);
-    bool parse(std::string s);
+    bool matches(const std::string &line);
     std::string const &first(void);
     std::string const &second(void);
 
@@ -29,13 +29,14 @@ class IndexPattern {
     const char IGNORE_CHAR = 'X';
 
     std::string pattern;
-    std::string line;
+    std::string index1;
+    std::string index2;
     size_t firstStart = std::string::npos;
-    size_t firstEnd = std::string::npos;
+    size_t firstLength = std::string::npos;
     size_t secondStart = std::string::npos;
-    size_t secondEnd = std::string::npos;
+    size_t secondLength = std::string::npos;
 
-    bool valid(void);
+    bool isValid(void);
     void setEndpoints(void);
 
     friend class IndexPatternFriend;
