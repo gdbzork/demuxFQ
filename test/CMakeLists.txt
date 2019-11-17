@@ -4,6 +4,8 @@ include_directories("${PROJECT_SOURCE_DIR}/common")
 file(COPY testdata DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_executable(test_demux catch.hpp main_test.cpp
                           index_test.cpp indexFriend.cpp indexFriend.h
-                          indexPattern_test.cpp indexPatternFriend.cpp indexPatternFriend.h
-                          lineType_test.cpp lineTypeFriend.cpp lineTypeFriend.h)
+                          indexPattern_test.cpp indexPatternFriend.cpp
+                          indexPatternFriend.h lineType_test.cpp
+                          lineTypeFriend.cpp lineTypeFriend.h
+                          target_test.cpp targetFriend.cpp targetFriend.h)
 target_link_libraries(test_demux demux_common)

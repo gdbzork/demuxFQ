@@ -6,10 +6,15 @@
 
 #define GZSUFFIX ".gz"
 
-Target::Target(std::string const &filename,std::string const &dest,bool compressed,bool noGZ) {
-  isCompressed = compressed;
+Target::Target(const std::string &dest,const std::string &filename) {
+  isCompressed = wantCompressed(filename);
   isOpen = false;
-  path = makeFilePath(filename,dest,compressed && !noGZ);
+  path = makeFilePath(dest,filename);
+}
+
+bool wantCompressed(const std::string &fn) {
+  std::string suffix = fn.substr(fn.length()-3);
+  return suffix == GZSUFFIX;
 }
 
 bool Target::open(void) {
@@ -51,27 +56,8 @@ void Target::write(char *buffer) {
   }
 }
 
-std::string Target::makeFilePath(std::string const &base,std::string const &dest,bool wantgz) {
-  bool realdest,absolute,hasgz;
-  std::string path,suff;
-  unsigned suffixLength = strlen(GZSUFFIX);
-
-  realdest = dest != ".";
-  absolute = base[0] == '/';
-  
-  hasgz = base.size() >= suffixLength
-          && base.substr(base.size()-suffixLength) == GZSUFFIX;
-  wantgz = wantgz && !hasgz;
-  suff = wantgz ? GZSUFFIX : "";
-  if (absolute) {
-    path = base + suff;
-  } else {
-    if (realdest) {
-      path = dest + "/" + base + suff;
-    } else {
-      path = base + suff;
-    }
-  }
-  return path;
+std::string Target::makeFilePath(const std::string &path,const std::string &filename) {
+  std::string full_path = path + '/' + filename;
+  return full_path;
 }
 
